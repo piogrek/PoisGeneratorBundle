@@ -1,0 +1,20 @@
+{{ "{% extends app.request.isXmlHttpRequest ? 'GrafixCrmBundle::layout_ajax.html.twig': 'GrafixCrmBundle::layout.html.twig' %}" }}
+{{ "{% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}" }}
+
+{{ "{% block headline %}Nowy {{ entity }}{% endblock %}" }}
+
+{{ "{% block content %}" }}
+
+<form class="form-horizontal" action="{{ "{{ path('"~ route_name_prefix ~"_create') }}" }}" method="post" {{ "{{ form_enctype(form) }}" }}>
+    {{ "{{ form_widget(form) }}" }}
+
+    <div class="form-actions">
+        <a class="btn btn-link" href="{{ "{{ path('"~ route_name_prefix ~"') }}" }}">
+            <i class="icon-arrow-left"></i> {{ "{{ 'buttons.back_to_list'|trans({}, 'GrafixCrmBundle') }}" }} 
+        </a>
+        <button class="btn btn-primary" type="submit">{{ "{{ 'buttons.submit'|trans({}, 'GrafixWebBundle') }}" }}</button>
+
+    </div>
+</form>
+
+{{ "{% endblock content %}" }}

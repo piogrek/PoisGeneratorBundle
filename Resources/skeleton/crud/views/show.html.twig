@@ -1,0 +1,45 @@
+{{ "{% extends app.request.isXmlHttpRequest ? 'GrafixCrmBundle::layout_ajax.html.twig': 'GrafixCrmBundle::layout.html.twig' %}" }}
+
+{{ "{% block headline %}Biwy {{ entity }}{% endblock %}" }}
+
+{{ "{% block content %}" }}
+
+<table class="table table-condensed record_properties">
+    <tbody>
+    {%- for field, metadata in fields %}
+
+        <tr>
+            <th>{{ field|capitalize }}</th>
+
+        {%- if metadata.type in ['date', 'datetime'] %}
+
+            <td>{{ '{{ entity.'~ field|replace({'_': ''}) ~'|date(\'Y-m-d H:i:s\') }}' }}</td>
+
+        {%- else %}
+
+            <td>{{ '{{ entity.'~ field|replace({'_': ''}) ~' }}' }}</td>
+
+        {%- endif %}
+
+        </tr>
+
+    {%- endfor %}
+
+    </tbody>
+</table>
+
+        <a class="btn btn-link"  href="{{"{{ path('"~ route_name_prefix ~"') }}"}}">
+            Back to the list
+        </a>
+        <a class="btn btn-primary"   href="{{ "{{ path('"~ route_name_prefix ~"_edit', { 'id': entity.id }) }}" }}">
+            Edit
+        </a>
+        <button class="btn btn-danger"  type="button" data-toggle="modal" data-target="#delete-dialog">
+            {{"{{ 'buttons.delete'|trans({}, 'GrafixCrmBundle') }}"}}
+        </button>
+
+
+{{ "{{ sp.deleteForm('"~ route_name_prefix ~"_delete', entity, delete_form, '"~ route_name_prefix ~".youAreAboutToDelete'|trans({}, 'GrafixWebBundle')  ) }} "}}
+
+
+{{ "{% endblock content %}" }}
