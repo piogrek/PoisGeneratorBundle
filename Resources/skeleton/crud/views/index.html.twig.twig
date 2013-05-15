@@ -1,5 +1,8 @@
-{{ "{% extends app.request.isXmlHttpRequest ? 'GrafixCrmBundle::layout_ajax.html.twig': 'GrafixCrmBundle::layout.html.twig' %}" }}
+{% block extends %}
+{{ "{% extends 'GrafixWebBundle::layout.html.twig' %}" }}
+{% endblock extends %}
 
+{% block body %}
 {{ "{% block headline %}Lista {% endblock %}" }}
 
 {{ "{% block content %}" }}
@@ -13,7 +16,7 @@
 
         {%- endfor %}
 
-            <th>Actions</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -38,7 +41,8 @@
         {%- if loop.last %}
 
             <td>
-                {%- include "views/others/actions.html.twig" %}
+                {{ "{{ btns.btnShow('" ~ route_name_prefix ~ "_show',  entity.id) }}" }}
+                {{ "{{ btns.btnEdit('" ~ route_name_prefix ~ "_edit',  entity.id) }}" }}     
             </td>
 
         {%- endif %}
@@ -59,3 +63,4 @@
 
 
 {{ "{% endblock content %}" }}
+{% endblock body %}

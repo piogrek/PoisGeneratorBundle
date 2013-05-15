@@ -1,6 +1,9 @@
-{{ "{% extends app.request.isXmlHttpRequest ? 'GrafixCrmBundle::layout_ajax.html.twig': 'GrafixCrmBundle::layout.html.twig' %}" }}
+{% block extends %}
+{{ "{% extends 'GrafixWebBundle::layout.html.twig' %}" }}
 {{ "{% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}" }}
+{% endblock extends %}
 
+{% block body %}
 {{ "{% block headline %}Nowy {{ entity }}{% endblock %}" }}
 
 {{ "{% block content %}" }}
@@ -18,3 +21,4 @@
 </form>
 
 {{ "{% endblock content %}" }}
+{% endblock body %}

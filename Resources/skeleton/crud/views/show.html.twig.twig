@@ -1,6 +1,9 @@
-{{ "{% extends app.request.isXmlHttpRequest ? 'GrafixCrmBundle::layout_ajax.html.twig': 'GrafixCrmBundle::layout.html.twig' %}" }}
+{% block extends %}
+{{ "{% extends 'GrafixWebBundle::layout.html.twig' %}" }}
+{% endblock extends %}
 
-{{ "{% block headline %}Biwy {{ entity }}{% endblock %}" }}
+{% block body %}
+{{ "{% block headline %}Podgląd {{ entity }}{% endblock %}" }}
 
 {{ "{% block content %}" }}
 
@@ -28,18 +31,19 @@
     </tbody>
 </table>
 
-        <a class="btn btn-link"  href="{{"{{ path('"~ route_name_prefix ~"') }}"}}">
-            Back to the list
-        </a>
-        <a class="btn btn-primary"   href="{{ "{{ path('"~ route_name_prefix ~"_edit', { 'id': entity.id }) }}" }}">
-            Edit
-        </a>
-        <button class="btn btn-danger"  type="button" data-toggle="modal" data-target="#delete-dialog">
-            {{"{{ 'buttons.delete'|trans({}, 'GrafixCrmBundle') }}"}}
-        </button>
+<a class="btn btn-link"  href="{{"{{ path('"~ route_name_prefix ~"') }}"}}">
+    Back to the list
+</a>
+<a class="btn btn-primary"   href="{{ "{{ path('"~ route_name_prefix ~"_edit', { 'id': entity.id }) }}" }}">
+    Edit
+</a>
+<button class="btn btn-danger"  type="button" data-toggle="modal" data-target="#delete-dialog">
+    {{"{{ 'buttons.delete'|trans({}, 'GrafixCrmBundle') }}"}}
+</button>
 
 
 {{ "{{ sp.deleteForm('"~ route_name_prefix ~"_delete', entity, delete_form, '"~ route_name_prefix ~".youAreAboutToDelete'|trans({}, 'GrafixWebBundle')  ) }} "}}
 
 
 {{ "{% endblock content %}" }}
+{% endblock body %}

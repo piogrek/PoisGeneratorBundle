@@ -1,11 +1,20 @@
-{{ "{% extends app.request.isXmlHttpRequest ? 'GrafixCrmBundle::layout_ajax.html.twig': 'GrafixCrmBundle::layout.html.twig' %}" }}
+{% block extends %}
+{{ "{% extends 'GrafixWebBundle::layout.html.twig' %}" }}
 {{ "{% form_theme form 'MopaBootstrapBundle:Form:fields.html.twig' %}" }}
+{% endblock extends %}
 
-{{ "{% block headline %}Edycja {{ entity }}{% endblock %}" }}
+{% block body %}
+{{ "{% block headline -%}" }}
+    Edycja {{ entity }}
+{{ "{% endblock %}" }}
 
-{{ "{% block content %}" }}
+{{ "{% block content -%}" }}
 
-    <form class="form-horizontal" action="{{ "{{ path('"~ route_name_prefix ~"_update', { 'id': entity.id }) }}" }}" method="post" {{ "{{ form_enctype(form) }}" }} >
+    <form 
+    action = "{{ "{{ path('" ~ route_name_prefix ~ "_update', { 'id': entity.id }) }}" }}" 
+    method = "post" 
+    {{ "{{ form_enctype(form) }}" }}>
+        <input type="hidden" name="_method" value="PUT" />
         {{ "{{ form_widget(form) }}" }}
 
         <div class="form-actions">
@@ -17,9 +26,11 @@
                 {{ "{{ 'buttons.delete'|trans({}, 'GrafixCrmBundle') }}" }}
             </button>
         </div>
+        
     </form>
 
 
     {{ "{{ sp.deleteForm('"~ route_name_prefix ~"_delete', entity, delete_form, '"~ route_name_prefix ~".youAreAboutToDelete'|trans({}, 'GrafixWebBundle')  ) }} "}}
 
-{{ "{% endblock content %}" }}
+{{ "{% endblock %}" }}
+{% endblock body %}
